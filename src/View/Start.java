@@ -1,7 +1,5 @@
 package View;
 
-import Controller.BoardController;
-import Model.BizPiece;
 import Model.Board;
 
 public class Start {
@@ -9,6 +7,7 @@ public class Start {
         Board board = new Board();
         BoardView boardView = new BoardView(board);
 
-        boardView.displayBoard();
+        boardView.displayMenus();
+        boardView.displayInitialBoard();
     }
 }
