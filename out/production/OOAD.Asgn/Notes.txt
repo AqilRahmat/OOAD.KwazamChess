@@ -1,0 +1,9 @@
+Version 1.0 (14/1/2025)
+1. Initial Commit into GitHub Repo
+2. MVC Structure
+
+To Be Done
+------------------
+- Functions for each pieces
+- Map Display with pieces
+- Program counter
