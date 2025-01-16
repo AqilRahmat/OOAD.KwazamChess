@@ -41,6 +41,7 @@ public abstract class Pieces {
 // Make a uturn when it reach the end of the board
 // Cannot skip other pieces
 
+
 // Sau Functionality
 // Can only move 1 step in any direction
 // Game ends when Sau is captured
