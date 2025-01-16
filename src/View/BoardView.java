@@ -4,6 +4,10 @@ import Model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+
+
 
 //TODO : add functionality to update game board with pieces
 public class BoardView {
@@ -22,6 +26,11 @@ public class BoardView {
         displayInitialBoard();
 
         frame.setVisible(true);
+    }
+    public void Logo(){
+        ImageIcon logo = new ImageIcon("src/Img/logo.png");
+        logo.setImage(logo.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+
     }
 
     public void displayMenus() {
@@ -60,11 +69,12 @@ public class BoardView {
     }
 
     public void getPieceImages(String cell, JLabel label) {
-        ImageIcon image = new ImageIcon();
+        ImageIcon image = null;
         switch(cell) {
             case "R":
                 image = new ImageIcon("src/Img/Ram.png");
                 label.setIcon(image);
+
                 break;
             case "B":
                 image = new ImageIcon("src/Img/Biz.png");
@@ -85,6 +95,14 @@ public class BoardView {
             default:
                 label.setIcon(null);
                 break;
+        }
+        if(image != null){
+            Image img = image.getImage();
+            Image newImage = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            ImageIcon newIcon = new ImageIcon(newImage);
+            label.setIcon(newIcon);
+        } else {
+            label.setIcon(null);
         }
     }
 }
