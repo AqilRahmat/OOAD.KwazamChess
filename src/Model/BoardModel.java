@@ -1,13 +1,9 @@
 package Model;
 
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
-
-public class Board {
+public class BoardModel {
     private String[][] board;
 
-    public Board() {
+    public BoardModel() {
         board = new String[8][5];
         setInitialPieces();
     }

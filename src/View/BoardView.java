@@ -1,21 +1,26 @@
 package View;
 
-import Model.Board;
+import Model.BoardModel;
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO : add functionality to update game board with pieces
 public class BoardView {
-    private Board board;
+    private BoardModel board;
     static JFrame frame;
+    private List<JPanel> panels;//to store all the panels inside for easy access by the controller
 
-    public BoardView(Board board) {
+    public BoardView(BoardModel board) {
         this.board = board;
+        panels = new ArrayList<>();
         frame = new JFrame("Kwazam Chess - TT5L GD");
         frame.setLayout(new GridLayout(9,5, -1, -1));
         frame.setSize(500, 600);
@@ -58,37 +63,55 @@ public class BoardView {
             for(String cell : row) {
                 JPanel panel = new JPanel();
                 JLabel label = new JLabel(cell, SwingConstants.CENTER);
+
+                //add the panels
                 panel.add(label, BorderLayout.CENTER);
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 panel.setPreferredSize(new Dimension(100, 100));
+
+                //set the images for the pieces & set access names for easier calls
                 String addimg = label.getText();
                 getPieceImages(addimg.trim(), label);
+                panel.getAccessibleContext().setAccessibleName(addimg);
+
+                //add into panels list for controller to handle adding mouselistener
+                panels.add(panel);
+
+                //add panel to frame
                 frame.add(panel);
             }
         }
+    }
+
+    public List<JPanel> getPanels() {
+        return panels;
     }
 
     public void getPieceImages(String cell, JLabel label) {
         ImageIcon image = null;
         switch(cell) {
             case "R":
+                label.setText("");
                 image = new ImageIcon("src/Img/Ram.png");
                 label.setIcon(image);
-
                 break;
             case "B":
+                label.setText("");
                 image = new ImageIcon("src/Img/Biz.png");
                 label.setIcon(image);
                 break;
             case "T":
+                label.setText("");
                 image = new ImageIcon("src/Img/Tor.png");
                 label.setIcon(image);
                 break;
             case "S":
+                label.setText("");
                 image = new ImageIcon("src/Img/Sau.png");
                 label.setIcon(image);
                 break;
             case "X":
+                label.setText("");
                 image = new ImageIcon("src/Img/Xor.png");
                 label.setIcon(image);
                 break;

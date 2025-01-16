@@ -1,39 +1,31 @@
 package Model;
 
-public abstract class Pieces {
-    private int newX, x;
-    private int newY, y;
+public abstract class PiecesAbstractModel {
+    private int row, col;
     private String label;
-    Board board;
+    private BoardModel board;
 
-    public Pieces(int x, int y, String label) {
-        this.x = x;
-        this.y = y;
+    public PiecesAbstractModel(int row, int col, String label, BoardModel board) {
+        this.row = row;
+        this.col = col;
         this.label = label;
+        this.board = board;
     }
 
-    public String getPiece() {
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public String getLabel() {
         return label;
     }
 
-    //get the location of the piece
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-
-    //set the new location when moved
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-    
     public abstract void Move(int x, int y, int newX, int newY);
-    public abstract boolean isValid(int x, int y, int newX, int newY);
+    public abstract boolean isValid(int newRow, int newCol);
 }
 
 // RamPiece functionality
