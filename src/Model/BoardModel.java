@@ -28,7 +28,7 @@ public class BoardModel {
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 if(i != 0 && i != 1 && i !=6 && i != 7) {
-                    board[i][j] = "#";
+                    board[i][j] = "";
                 }
             }
         }
@@ -51,5 +51,12 @@ public class BoardModel {
 
     public String[][] getBoard() {
         return board;
+    }
+
+    public void movePiece(int oldRow, int oldCol, int row, int col) {
+        if(board[oldRow][oldCol] != null) {
+            board[row][col] = board[oldRow][oldCol];
+            board[oldRow][oldCol] = "";
+        }
     }
 }

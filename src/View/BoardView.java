@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,6 +123,19 @@ public class BoardView {
             label.setIcon(newIcon);
         } else {
             label.setIcon(null);
+        }
+    }
+
+    public void UpdateBoard() {
+        String[][] boardArray = board.getBoard();
+        for(int i = 0; i < panels.size(); i++) {
+            int row = i / 5;
+            int col = i % 5;
+            JLabel label = (JLabel) panels.get(i).getComponent(0);
+            String cell = boardArray[row][col];
+
+            label.setText(cell.equals("#") ? "" : cell);
+            getPieceImages(cell.trim(), label);
         }
     }
 }

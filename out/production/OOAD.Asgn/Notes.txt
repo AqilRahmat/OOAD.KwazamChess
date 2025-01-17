@@ -7,3 +7,11 @@ To Be Done
 - Functions for each pieces
 - Map Display with pieces
 - Program counter
+
+Version 1.1 (16/1/2025)
+1. Chessboard Display
+2. Bg change when selecting a square
+
+To Be Done
+------------------
+- Update Board Function
