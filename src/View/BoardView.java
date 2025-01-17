@@ -112,6 +112,31 @@ public class BoardView {
                 image = new ImageIcon("src/Img/Xor.png");
                 label.setIcon(image);
                 break;
+            case "RB":
+                label.setText("");
+                image = new ImageIcon("src/Img/RamBlue.png");
+                label.setIcon(image);
+                break;
+            case "BB":
+                label.setText("");
+                image = new ImageIcon("src/Img/BizBlue.png");
+                label.setIcon(image);
+                break;
+            case "TB":
+                label.setText("");
+                image = new ImageIcon("src/Img/TorBlue.png");
+                label.setIcon(image);
+                break;
+            case "SB":
+                label.setText("");
+                image = new ImageIcon("src/Img/SauBlue.png");
+                label.setIcon(image);
+                break;
+            case "XB":
+                label.setText("");
+                image = new ImageIcon("src/Img/XorBlue.png");
+                label.setIcon(image);
+                break;
             default:
                 label.setIcon(null);
                 break;

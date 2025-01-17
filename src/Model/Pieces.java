@@ -1,10 +1,8 @@
 package Model;
 
-import javax.swing.*;
-
 public abstract class Pieces {
     private int row, col;
-    private BoardModel board;
+    public BoardModel board;
 
     public Pieces(int row, int col, BoardModel board) {
         this.row = row;
@@ -21,14 +19,14 @@ public abstract class Pieces {
     }
 
     public void Move(int newRow, int newCol) {
-        if(!board.getBoard()[newRow][newCol].equals("")) {
+        if (!board.getBoard()[newRow][newCol].equals("")) {
             return;
         }
-        if(isValid(newRow, newCol)) {
+        if (isValid(newRow, newCol)) {
             board.movePiece(row, col, newRow, newCol);
             this.row = newRow;
             this.col = newCol;
-            System.out.println("Moved from :" + row + col + " To " + newRow + newCol);
+            System.out.println("Moved from: " + row + col + " To " + newRow + newCol);
         }
     }
 

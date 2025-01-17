@@ -3,6 +3,8 @@ package Controller;
 import Model.BizModel;
 import Model.BoardModel;
 import Model.Pieces;
+import Model.RamModel;
+import Model.RamBlueModel;
 import Model.TorModel;
 import View.BoardView;
 
@@ -66,7 +68,7 @@ public class BoardController implements MouseListener {
         String piece = board.getBoard()[row][col].trim();
         switch(piece) {
             case "R":
-                return null;
+                return new RamModel(row, col, board);
             case "B":
                 return new BizModel(row, col, board);
             case "S":
@@ -74,6 +76,16 @@ public class BoardController implements MouseListener {
             case "X":
                 return null;
             case "T":
+                return new TorModel(row, col, board);
+            case "RB":
+                return new RamBlueModel(row, col, board);
+            case "BB":
+                return new BizModel(row, col, board);
+            case "SB":
+                return null;
+            case "XB":
+                return null;
+            case "TB":
                 return new TorModel(row, col, board);
             default:
                 return null;

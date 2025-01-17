@@ -35,18 +35,18 @@ public class BoardModel {
 
         //bottom two row
         //7th row
-        board[6][0] = "R";
-        board[6][1] = "R";
-        board[6][2] = "R";
-        board[6][3] = "R";
-        board[6][4] = "R";
+        board[6][0] = "RB";
+        board[6][1] = "RB";
+        board[6][2] = "RB";
+        board[6][3] = "RB";
+        board[6][4] = "RB";
 
         //8th row
-        board[7][0] = "S";
-        board[7][1] = "B";
-        board[7][2] = "S";
-        board[7][3] = "B";
-        board[7][4] = "X";
+        board[7][0] = "SB";
+        board[7][1] = "BB";
+        board[7][2] = "SB";
+        board[7][3] = "BB";
+        board[7][4] = "XB";
     }
 
     public String[][] getBoard() {

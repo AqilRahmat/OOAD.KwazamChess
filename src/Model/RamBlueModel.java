@@ -1,9 +1,9 @@
 package Model;
 
-public class RamModel extends Pieces {
-    private boolean moveUp = false; //top to bottom
+public class RamBlueModel extends Pieces {
+    private boolean moveUp = true; //bottom to top
 
-    public RamModel(int row, int col, BoardModel board) {super(row, col, board);}
+    public RamBlueModel(int row, int col, BoardModel board) {super(row, col, board);}
 
     @Override
     public void Move(int newRow, int newCol) {
