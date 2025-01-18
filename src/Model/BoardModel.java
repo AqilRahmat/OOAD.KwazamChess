@@ -1,5 +1,7 @@
 package Model;
 
+import javax.swing.JOptionPane;
+
 public class BoardModel {
     private String[][] board;
     private int counter = 1; // Keeps track of turns
@@ -68,6 +70,13 @@ public class BoardModel {
             return;
         }
 
+        // Check if the target position contains the "S" or "ES" piece
+        if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
+            String capturedPiece = board[row][col];
+            endGame(capturedPiece); // Handle game-over logic with a dialog box
+            return; // Stop further execution
+        }
+
         if (board[oldRow][oldCol] != null) {
             board[row][col] = board[oldRow][oldCol];
             board[oldRow][oldCol] = "";
@@ -80,6 +89,17 @@ public class BoardModel {
         if (counter % 2 == 0) {
             transformPieces(); // Transform pieces every 2 turns
         }
+    }
+
+    private void endGame(String capturedPiece) {
+        // Show a dialog box informing the user that the game is over
+        JOptionPane.showMessageDialog(null,
+                "The Sau piece has been captured. Game over!",
+                "Game Over",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        // Exit program
+        System.exit(0); // Terminate the program
     }
 
     public void rotateBoard() {
