@@ -12,10 +12,6 @@ public class XorModel extends Pieces {
 
     @Override
     public void Move(int newRow, int newCol) {
-        if(transform(newRow, newCol)) {
-            new TorModel(newRow, newCol, board);
-        }
-
         if(isValid(newRow, newCol)) {
             super.Move(newRow, newCol);
         }
@@ -29,13 +25,4 @@ public class XorModel extends Pieces {
         return (rowDiff == colDiff) && (rowDiff + colDiff > 0);
     }
 
-    public boolean transform(int newRow, int newCol) {
-        int count = board.getCounter();
-
-        if(count % 2 == 0) {
-            return true;
-        }
-
-        return false;
-    }
 }
