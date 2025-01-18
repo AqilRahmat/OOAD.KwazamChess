@@ -4,7 +4,9 @@ import javax.swing.JOptionPane;
 
 public class BoardModel {
     private String[][] board;
-    private boolean isBlueTurn = true; // blue team first
+    private boolean isBlueTurn = true; // blue team moves first
+    private int turnCounter = 0; // track number of turns
+    private String lastMove;
 
     public BoardModel() {
         board = new String[8][5];
@@ -27,7 +29,7 @@ public class BoardModel {
         board[1][3] = "R";
         board[1][4] = "R";
 
-        // empty spaces
+        // Empty spaces in the middle
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = "";
@@ -55,7 +57,7 @@ public class BoardModel {
     }
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
-        System.out.println(isBlueTurn ? "Blue's turn" : "Red's turn"); // print turns
+        System.out.println(isBlueTurn ? "Blue's turn" : "Red's turn"); // print turn
 
         if (!canMoveThisTurn(board[oldRow][oldCol])) {
             System.out.println("It's not this piece's turn to move.");
@@ -63,7 +65,7 @@ public class BoardModel {
         }
 
         if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
-            endGame(board[row][col]); // Handle game-over logic
+            endGame(board[row][col]); // game-over
             return;
         }
 
@@ -71,7 +73,11 @@ public class BoardModel {
             board[row][col] = board[oldRow][oldCol];
             board[oldRow][oldCol] = "";
             rotateBoard();
-            switchTurn(); // switch turns
+            turnCounter++;
+            if (turnCounter % 2 == 0) {
+                transformPieces(); // Xor and Tor transformation function
+            }
+            switchTurn();
         }
     }
 
@@ -85,7 +91,7 @@ public class BoardModel {
     }
 
     private void switchTurn() {
-        isBlueTurn = !isBlueTurn;
+        isBlueTurn = !isBlueTurn; // toggle turn
     }
 
     private void endGame(String capturedPiece) {
@@ -93,7 +99,7 @@ public class BoardModel {
                 "The Sau piece has been captured. Game over!",
                 "Game Over",
                 JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0); // terminate the program
+        System.exit(0); // terminate
     }
 
     public void rotateBoard() {
