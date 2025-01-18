@@ -57,12 +57,13 @@ public class BoardModel {
     }
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
-        System.out.println(isBlueTurn ? "Red's turn" : "Blue's turn"); // print turn
-
         if (!canMoveThisTurn(board[oldRow][oldCol])) {
             System.out.println("It's not this piece's turn to move.");
             return;
         }
+
+        // print turn
+        System.out.println(isBlueTurn ? "Red's turn" : "Blue's turn");
 
         if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
             endGame(board[row][col]); // game-over
