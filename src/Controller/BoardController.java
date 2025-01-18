@@ -4,7 +4,6 @@ import Model.BizModel;
 import Model.BoardModel;
 import Model.Pieces;
 import Model.RamModel;
-import Model.RamBlueModel;
 import Model.TorModel;
 import View.BoardView;
 
@@ -12,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BoardController implements MouseListener {
@@ -77,15 +75,15 @@ public class BoardController implements MouseListener {
                 return null;
             case "T":
                 return new TorModel(row, col, board);
-            case "RB":
-                return new RamBlueModel(row, col, board);
-            case "BB":
+            case "ER":
+                return new RamModel(row, col, board);
+            case "EB":
                 return new BizModel(row, col, board);
-            case "SB":
+            case "ES":
                 return null;
-            case "XB":
+            case "EX":
                 return null;
-            case "TB":
+            case "ET":
                 return new TorModel(row, col, board);
             default:
                 return null;

@@ -12,6 +12,13 @@ public class BizModel extends Pieces {
     }
 
     @Override
+    public void Move(int newRow, int newCol) {
+        if(isValid(newRow, newCol)) {
+            super.Move(newRow, newCol);
+        }
+    }
+
+    @Override
     public boolean isValid(int newRow, int newCol) {
         int rowDiff = Math.abs(this.getRow() - newRow);
         int colDiff = Math.abs(this.getCol() - newCol);

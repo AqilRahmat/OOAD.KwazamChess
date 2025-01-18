@@ -1,8 +1,0 @@
-TEMPLATE
-(WHO)(WHEN)(IDE)
-(list)
--------------------------
-
-Aqil 17/1/2025 IntelliJ
-1. Completed board functions to update board after each move
-2. completed movement functions for Tor and Biz piece (Tor still needs verification)

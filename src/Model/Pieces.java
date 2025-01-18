@@ -19,15 +19,31 @@ public abstract class Pieces {
     }
 
     public void Move(int newRow, int newCol) {
-        if (!board.getBoard()[newRow][newCol].equals("")) {
-            return;
-        }
-        if (isValid(newRow, newCol)) {
-            board.movePiece(row, col, newRow, newCol);
+        if(!checkForTeam(newRow, newCol)) {
+            board.movePiece(getRow(), getCol(), newRow, newCol);
             this.row = newRow;
             this.col = newCol;
-            System.out.println("Moved from: " + row + col + " To " + newRow + newCol);
         }
+    }
+
+    private boolean checkForTeam(int newRow, int newCol) {
+        String team = board.getBoard()[getRow()][getCol()];
+        String target = board.getBoard()[newRow][newCol];
+
+        //check for empty cell in which case the move will always be valid
+        if(target.equals("")) {
+            return false;
+        }
+
+        //check if the pieces is on the same team
+        boolean isTeam = team.startsWith("E");
+        boolean isTarget = target.startsWith("E");
+
+        if(isTeam == isTarget) {
+            return true;
+        }
+
+        return false;
     }
 
     public abstract boolean isValid(int newRow, int newCol);

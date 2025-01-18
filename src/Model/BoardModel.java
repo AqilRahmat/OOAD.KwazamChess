@@ -2,6 +2,8 @@ package Model;
 
 public class BoardModel {
     private String[][] board;
+    private int counter = 0;
+    private String lastmove;
 
     public BoardModel() {
         board = new String[8][5];
@@ -35,18 +37,18 @@ public class BoardModel {
 
         //bottom two row
         //7th row
-        board[6][0] = "RB";
-        board[6][1] = "RB";
-        board[6][2] = "RB";
-        board[6][3] = "RB";
-        board[6][4] = "RB";
+        board[6][0] = "ER";
+        board[6][1] = "ER";
+        board[6][2] = "ER";
+        board[6][3] = "ER";
+        board[6][4] = "ER";
 
         //8th row
-        board[7][0] = "SB";
-        board[7][1] = "BB";
-        board[7][2] = "SB";
-        board[7][3] = "BB";
-        board[7][4] = "XB";
+        board[7][0] = "ES";
+        board[7][1] = "EB";
+        board[7][2] = "ES";
+        board[7][3] = "EB";
+        board[7][4] = "EX";
     }
 
     public String[][] getBoard() {
@@ -54,9 +56,47 @@ public class BoardModel {
     }
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
+        //check if the moving piece is the same as before
+        if(!whomovelast(oldRow, oldCol, row, col)) {
+            return;
+        }
+
         if(board[oldRow][oldCol] != null) {
             board[row][col] = board[oldRow][oldCol];
             board[oldRow][oldCol] = "";
+
+            rotateBoard();
         }
     }
+
+    public void rotateBoard() {
+        String[][] rotatedBoard = new String[8][5];
+
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                rotatedBoard[7-i][4-j] = board[i][j];
+            }
+        }
+
+        board = rotatedBoard;
+    }
+
+    public boolean whomovelast(int oldRow, int oldCol, int row, int col) {
+        String currentmove = board[oldRow][oldCol];
+
+        if(currentmove == null || currentmove.isEmpty()) {
+            return false;
+        }
+
+        String currentTeam = currentmove.substring(0, 1);
+        String lastTeam = (lastmove == null || lastmove.isEmpty()) ? null : lastmove.substring(0, 1);
+
+        if(lastTeam != null && lastTeam.equals(currentTeam)) {
+            return false;
+        }
+
+        lastmove = currentmove;
+        return true;
+    }
+
 }

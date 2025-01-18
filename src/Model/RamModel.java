@@ -1,14 +1,13 @@
 package Model;
 
 public class RamModel extends Pieces {
-    private boolean moveUp = false; //top to bottom
+    private boolean moveUp = true; //top to bottom
 
     public RamModel(int row, int col, BoardModel board) {super(row, col, board);}
 
     @Override
     public void Move(int newRow, int newCol) {
         if (isValid(newRow, newCol)) {
-            board.movePiece(getRow(), getCol(), newRow, newCol);
             super.Move(newRow, newCol);
 
             // turn around at the end
@@ -29,4 +28,6 @@ public class RamModel extends Pieces {
         int step = moveUp ? -1 : 1;
         return (newRow - getRow()) == step;
     }
+
+
 }
