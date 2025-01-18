@@ -5,6 +5,8 @@ import View.BoardView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -74,6 +76,17 @@ public class BoardController implements MouseListener {
             default:
                 return null;
         }
+    }
+
+    public static void newGame(JButton button, JFrame frame) {
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                BoardModel board = new BoardModel();
+                BoardView boardView = new BoardView(board);
+                BoardController boardController = new BoardController(board, boardView);
+            }
+        });
     }
 
     @Override

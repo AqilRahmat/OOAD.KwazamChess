@@ -1,25 +1,23 @@
 package View;
 
+import Controller.BoardController;
 import Model.BoardModel;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.ImageIcon;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO : add functionality to update game board with pieces
 public class BoardView {
     private BoardModel board;
     static JFrame frame;
-    private List<JPanel> panels;//to store all the panels inside for easy access by the controller
+    private List<JPanel> panels;
 
     public BoardView(BoardModel board) {
         this.board = board;
         panels = new ArrayList<>();
         frame = new JFrame("Kwazam Chess - TT5L GD");
-        frame.setLayout(new GridLayout(9,5, -1, -1));
+        frame.setLayout(new GridLayout(9, 5, -1, -1));
         frame.setSize(600, 700);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,34 +25,31 @@ public class BoardView {
         displayMenus();
         displayInitialBoard();
 
-        //popup to remind user that blue starts first
         JOptionPane.showMessageDialog(frame, "Blue Piece Starts First. Enjoy!", "Kwazam Chess", JOptionPane.INFORMATION_MESSAGE);
 
         frame.setVisible(true);
     }
 
     public void displayMenus() {
-        //Save Button
         JButton save = new JButton("Save");
+        save.addActionListener(e -> {
+            board.saveGame("save_file.txt");
+            JOptionPane.showMessageDialog(frame, "Game saved successfully!", "Save Game", JOptionPane.INFORMATION_MESSAGE);
+        });
 
-        //Load
         JButton load = new JButton("Load");
-
-        //New Game
         JButton newgame = new JButton("New Game");
+        BoardController.newGame(newgame, frame);
 
-        //Rules
         JButton rules = new JButton("Rules");
         rules.addActionListener(e -> openRulesWindow());
 
-        //Logo
         ImageIcon logoIcon = new ImageIcon("src/Img/logo.png");
         Image img = logoIcon.getImage();
         Image resizedImg = img.getScaledInstance(130, 35, Image.SCALE_SMOOTH);
         logoIcon = new ImageIcon(resizedImg);
         JLabel logoLabel = new JLabel(logoIcon);
 
-        //add into frame
         frame.add(save);
         frame.add(load);
         frame.add(newgame);
@@ -119,30 +114,23 @@ public class BoardView {
         rulesFrame.setVisible(true);
     }
 
-
-
     public void displayInitialBoard() {
         String[][] boardArray = board.getBoard();
 
-        for(String[] row : boardArray) {
-            for(String cell : row) {
+        for (String[] row : boardArray) {
+            for (String cell : row) {
                 JPanel panel = new JPanel();
                 JLabel label = new JLabel(cell, SwingConstants.CENTER);
 
-                //add the panels
                 panel.add(label, BorderLayout.CENTER);
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 panel.setPreferredSize(new Dimension(100, 100));
 
-                //set the images for the pieces & set access names for easier calls
                 String addimg = label.getText();
                 getPieceImages(addimg.trim(), label);
                 panel.getAccessibleContext().setAccessibleName(addimg);
 
-                //add into panels list for controller to handle adding mouselistener
                 panels.add(panel);
-
-                //add panel to frame
                 frame.add(panel);
             }
         }
@@ -221,7 +209,7 @@ public class BoardView {
 
     public void UpdateBoard() {
         String[][] boardArray = board.getBoard();
-        for(int i = 0; i < panels.size(); i++) {
+        for (int i = 0; i < panels.size(); i++) {
             int row = i / 5;
             int col = i % 5;
             JLabel label = (JLabel) panels.get(i).getComponent(0);
