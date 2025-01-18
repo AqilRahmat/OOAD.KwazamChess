@@ -21,7 +21,7 @@ public class BoardController implements MouseListener {
     JPanel clickedPanel;
     JPanel selectedPanel;
     int selectedRow, selectedCol;
-    public static List<String> movesHistory = new ArrayList<>();
+    public static List<String> moves = new ArrayList<>();
 
     public BoardController(BoardModel board, BoardView chessBoardDisplay) {
         this.board = board;
@@ -54,7 +54,7 @@ public class BoardController implements MouseListener {
             if(piece != null && piece.isValid(clickedPanelX, clickedPanelY)) {
                 //write to file
                 String move = String.format("%s moved from (%d, %d) to (%d, %d)", board.getBoard()[selectedRow][selectedCol], selectedRow, selectedCol, clickedPanelX, clickedPanelY);
-                movesHistory.add(move);
+                moves.add(move);
 
                 piece.Move(clickedPanelX, clickedPanelY);
                 boardview.UpdateBoard();
@@ -102,14 +102,12 @@ public class BoardController implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try (FileWriter fileWriter = new FileWriter(file)) {
-                    for(String move : movesHistory) {
+                    for(String move : moves) {
                         fileWriter.write(move + "\n");
                     }
-                    JOptionPane.showMessageDialog(null, "Game Saved!1");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
             }
         });
     }

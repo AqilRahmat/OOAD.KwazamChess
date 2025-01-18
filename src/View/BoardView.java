@@ -36,6 +36,7 @@ public class BoardView {
             board.saveGame("save_file.txt");
             JOptionPane.showMessageDialog(frame, "Game saved successfully!", "Save Game", JOptionPane.INFORMATION_MESSAGE);
         });
+        BoardController.saveGame("saved_game.txt", save);
 
         JButton load = new JButton("Load");
         JButton newgame = new JButton("New Game");
