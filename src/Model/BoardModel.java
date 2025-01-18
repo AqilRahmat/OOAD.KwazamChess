@@ -108,7 +108,7 @@ public class BoardModel {
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                rotatedBoard[7 - i][4 - j] = board[i][j];
+                rotatedBoard[7-i][4 - j] = board[i][j];
             }
         }
 

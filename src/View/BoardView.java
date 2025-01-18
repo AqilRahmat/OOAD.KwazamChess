@@ -1,5 +1,6 @@
 package View;
 
+import Controller.BoardController;
 import Model.BoardModel;
 
 import javax.swing.*;
@@ -36,12 +37,14 @@ public class BoardView {
     public void displayMenus() {
         //Save Button
         JButton save = new JButton("Save");
+        BoardController.saveGame("SavedGame.txt", save);
 
         //Load
         JButton load = new JButton("Load");
 
         //New Game
         JButton newgame = new JButton("New Game");
+        BoardController.newGame(newgame, frame);
 
         //Rules
         JButton rules = new JButton("Rules");
