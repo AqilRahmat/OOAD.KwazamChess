@@ -4,17 +4,11 @@ import javax.swing.JOptionPane;
 
 public class BoardModel {
     private String[][] board;
-    private int counter = 1; // Keeps track of turns
-    private String lastmove;
+    private boolean isBlueTurn = true; // blue team first
 
     public BoardModel() {
         board = new String[8][5];
         setInitialPieces();
-    }
-
-    // Return counter for Xor and Tor piece transformation
-    public int getCounter() {
-        return counter;
     }
 
     public void setInitialPieces() {
@@ -33,12 +27,10 @@ public class BoardModel {
         board[1][3] = "R";
         board[1][4] = "R";
 
-        // Empty spaces in the middle
-        for (int i = 0; i < board.length; i++) {
+        // empty spaces
+        for (int i = 2; i < 6; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (i != 0 && i != 1 && i != 6 && i != 7) {
-                    board[i][j] = "";
-                }
+                board[i][j] = "";
             }
         }
 
@@ -63,43 +55,45 @@ public class BoardModel {
     }
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
-        System.out.println(counter); // Print the turn counter for debugging
+        System.out.println(isBlueTurn ? "Blue's turn" : "Red's turn"); // print turns
 
-        // Check if the moving piece is the same as before
-        if (!whomovelast(oldRow, oldCol, row, col)) {
+        if (!canMoveThisTurn(board[oldRow][oldCol])) {
+            System.out.println("It's not this piece's turn to move.");
             return;
         }
 
-        // Check if the target position contains the "S" or "ES" piece
         if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
-            String capturedPiece = board[row][col];
-            endGame(capturedPiece); // Handle game-over logic with a dialog box
-            return; // Stop further execution
+            endGame(board[row][col]); // Handle game-over logic
+            return;
         }
 
-        if (board[oldRow][oldCol] != null) {
+        if (board[oldRow][oldCol] != null && !board[oldRow][oldCol].isEmpty()) {
             board[row][col] = board[oldRow][oldCol];
             board[oldRow][oldCol] = "";
-
             rotateBoard();
-        }
-
-        counter++;
-
-        if (counter % 2 == 0) {
-            transformPieces(); // Transform pieces every 2 turns
+            switchTurn(); // switch turns
         }
     }
 
+    private boolean canMoveThisTurn(String pieceName) {
+        if (pieceName == null || pieceName.isEmpty()) {
+            return false;
+        }
+
+        boolean isBluePiece = pieceName.startsWith("E");
+        return isBlueTurn == isBluePiece;
+    }
+
+    private void switchTurn() {
+        isBlueTurn = !isBlueTurn;
+    }
+
     private void endGame(String capturedPiece) {
-        // Show a dialog box informing the user that the game is over
         JOptionPane.showMessageDialog(null,
                 "The Sau piece has been captured. Game over!",
                 "Game Over",
                 JOptionPane.INFORMATION_MESSAGE);
-
-        // Exit program
-        System.exit(0); // Terminate the program
+        System.exit(0); // terminate the program
     }
 
     public void rotateBoard() {
@@ -114,30 +108,10 @@ public class BoardModel {
         board = rotatedBoard;
     }
 
-    public boolean whomovelast(int oldRow, int oldCol, int row, int col) {
-        String currentmove = board[oldRow][oldCol];
-
-        if (currentmove == null || currentmove.isEmpty()) {
-            return false;
-        }
-
-        String currentTeam = currentmove.substring(0, 1);
-        String lastTeam = (lastmove == null || lastmove.isEmpty()) ? null : lastmove.substring(0, 1);
-
-        if (lastTeam != null && lastTeam.equals(currentTeam)) {
-            return false;
-        }
-
-        lastmove = currentmove;
-        return true;
-    }
-
-    // xor to tor, tor to xor for all pieces after 2 turns
     private void transformPieces() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] != null && !board[i][j].isEmpty()) {
-                    // check x and t pieces
                     if (board[i][j].equals("X")) {
                         board[i][j] = "T";
                     } else if (board[i][j].equals("T")) {

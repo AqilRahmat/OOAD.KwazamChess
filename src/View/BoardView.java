@@ -32,11 +32,6 @@ public class BoardView {
 
         frame.setVisible(true);
     }
-    public void Logo(){
-        ImageIcon logo = new ImageIcon("src/Img/logo.png");
-        logo.setImage(logo.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-
-    }
 
     public void displayMenus() {
         //Save Button
@@ -48,11 +43,19 @@ public class BoardView {
         //New Game
         JButton newgame = new JButton("New Game");
 
+
+        //Logo
+        ImageIcon logoIcon = new ImageIcon("src/Img/logo.png");
+        Image img = logoIcon.getImage();
+        Image resizedImg = img.getScaledInstance(130, 35, Image.SCALE_SMOOTH);
+        logoIcon = new ImageIcon(resizedImg);
+        JLabel logoLabel = new JLabel(logoIcon);
+
         //add into frame
         frame.add(save);
         frame.add(load);
         frame.add(newgame);
-        frame.add(new JLabel());
+        frame.add(logoLabel);
         frame.add(new JLabel());
     }
 
