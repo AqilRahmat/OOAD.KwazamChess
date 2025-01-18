@@ -27,6 +27,9 @@ public class BoardView {
         displayMenus();
         displayInitialBoard();
 
+        //popup to remind user that blue starts first
+        JOptionPane.showMessageDialog(frame, "Blue Piece Starts First. Enjoy!");
+
         frame.setVisible(true);
     }
     public void Logo(){

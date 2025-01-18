@@ -1,9 +1,41 @@
 package Model;
 
-// moveset
-// Can move diagonally only, but any distance
-// cannot skip over other pieces
-// turns 2 Tor after 2 turns
+//move set
+// can move diagonally any distance
+// after 2 turn turn to Tor
+// cannot skip other pieces
 
-public class XorModel {
+public class XorModel extends Pieces {
+    public XorModel(int row, int col, BoardModel board) {
+        super(row, col, board);
+    }
+
+    @Override
+    public void Move(int newRow, int newCol) {
+        if(transform(newRow, newCol)) {
+            new TorModel(newRow, newCol, board);
+        }
+
+        if(isValid(newRow, newCol)) {
+            super.Move(newRow, newCol);
+        }
+    }
+
+    @Override
+    public boolean isValid(int newRow, int newCol) {
+        int rowDiff = Math.abs(this.getRow() - newRow);
+        int colDiff = Math.abs(this.getCol() - newCol);
+
+        return (rowDiff == colDiff) && (rowDiff + colDiff > 0);
+    }
+
+    public boolean transform(int newRow, int newCol) {
+        int count = board.getCounter();
+
+        if(count % 2 == 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

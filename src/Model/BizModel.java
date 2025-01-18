@@ -5,7 +5,6 @@ package Model;
 // Can skip over other pieces
 public class BizModel extends Pieces {
     private int row, col;
-    BoardModel board;
 
     public BizModel(int row, int col, BoardModel board) {
         super(row, col, board);

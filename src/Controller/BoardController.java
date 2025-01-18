@@ -1,10 +1,6 @@
 package Controller;
 
-import Model.BizModel;
-import Model.BoardModel;
-import Model.Pieces;
-import Model.RamModel;
-import Model.TorModel;
+import Model.*;
 import View.BoardView;
 
 import javax.swing.*;
@@ -65,25 +61,15 @@ public class BoardController implements MouseListener {
     public Pieces createPiece(int row, int col) {
         String piece = board.getBoard()[row][col].trim();
         switch(piece) {
-            case "R":
+            case "R": case "ER":
                 return new RamModel(row, col, board);
-            case "B":
+            case "B": case "EB":
                 return new BizModel(row, col, board);
-            case "S":
-                return null;
-            case "X":
-                return null;
-            case "T":
-                return new TorModel(row, col, board);
-            case "ER":
-                return new RamModel(row, col, board);
-            case "EB":
-                return new BizModel(row, col, board);
-            case "ES":
-                return null;
-            case "EX":
-                return null;
-            case "ET":
+            case "S": case "ES":
+                return new SauModel(row, col, board);
+            case "X": case "EX":
+                return new XorModel(row, col, board);
+            case "T": case "ET":
                 return new TorModel(row, col, board);
             default:
                 return null;

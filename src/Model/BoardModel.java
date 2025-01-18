@@ -2,12 +2,17 @@ package Model;
 
 public class BoardModel {
     private String[][] board;
-    private int counter = 0;
+    private int counter = 1;
     private String lastmove;
 
     public BoardModel() {
         board = new String[8][5];
         setInitialPieces();
+    }
+
+    //return counter for Xor and Tor piece to transform
+    public int getCounter() {
+        return counter;
     }
 
     public void setInitialPieces() {
@@ -44,7 +49,7 @@ public class BoardModel {
         board[6][4] = "ER";
 
         //8th row
-        board[7][0] = "ES";
+        board[7][0] = "EX";
         board[7][1] = "EB";
         board[7][2] = "ES";
         board[7][3] = "EB";
@@ -56,6 +61,7 @@ public class BoardModel {
     }
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
+        System.out.println(counter);
         //check if the moving piece is the same as before
         if(!whomovelast(oldRow, oldCol, row, col)) {
             return;
@@ -67,6 +73,8 @@ public class BoardModel {
 
             rotateBoard();
         }
+
+        counter++;
     }
 
     public void rotateBoard() {
