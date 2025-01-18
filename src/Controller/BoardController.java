@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardController implements MouseListener {
@@ -18,7 +21,7 @@ public class BoardController implements MouseListener {
     JPanel clickedPanel;
     JPanel selectedPanel;
     int selectedRow, selectedCol;
-    String selectedPiece;
+    public static List<String> movesHistory = new ArrayList<>();
 
     public BoardController(BoardModel board, BoardView chessBoardDisplay) {
         this.board = board;
@@ -49,6 +52,10 @@ public class BoardController implements MouseListener {
             //second click
             Pieces piece = createPiece(selectedRow, selectedCol);
             if(piece != null && piece.isValid(clickedPanelX, clickedPanelY)) {
+                //write to file
+                String move = String.format("%s moved from (%d, %d) to (%d, %d)", board.getBoard()[selectedRow][selectedCol], selectedRow, selectedCol, clickedPanelX, clickedPanelY);
+                movesHistory.add(move);
+
                 piece.Move(clickedPanelX, clickedPanelY);
                 boardview.UpdateBoard();
             }
@@ -80,11 +87,29 @@ public class BoardController implements MouseListener {
 
     public static void newGame(JButton button, JFrame frame) {
         button.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 BoardModel board = new BoardModel();
-                BoardView boardView = new BoardView(board);
-                BoardController boardController = new BoardController(board, boardView);
+                BoardView boardview = new BoardView(board);
+                BoardController boardcontroller = new BoardController(board, boardview);
+            }
+        });
+    }
+
+    public static void saveGame(String file, JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try (FileWriter fileWriter = new FileWriter(file)) {
+                    for(String move : movesHistory) {
+                        fileWriter.write(move + "\n");
+                    }
+                    JOptionPane.showMessageDialog(null, "Game Saved!1");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
             }
         });
     }
