@@ -39,6 +39,7 @@ public class BoardView {
         BoardController.saveGame("saved_game.txt", save);
 
         JButton load = new JButton("Load");
+        BoardController.loadGame("save_file.txt",load,board,this);
         JButton newgame = new JButton("New Game");
         BoardController.newGame(newgame, frame);
 

@@ -9,8 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,37 +38,33 @@ public class BoardController implements MouseListener {
         int clickedPanelX = panels.indexOf(clickedPanel) / 5;
         int clickedPanelY = panels.indexOf(clickedPanel) % 5;
 
-        if(selectedPanel == null) {
-            //function to highlight the box clicked
+        if (selectedPanel == null) {
             String piecetomove = board.getBoard()[clickedPanelX][clickedPanelY];
-            if(!piecetomove.equals("#")) {
+            if (!piecetomove.isEmpty()) {
                 selectedPanel = clickedPanel;
                 selectedRow = clickedPanelX;
                 selectedCol = clickedPanelY;
                 clickedPanel.setBackground(Color.YELLOW);
             }
         } else {
-            //second click
             Pieces piece = createPiece(selectedRow, selectedCol);
-            if(piece != null && piece.isValid(clickedPanelX, clickedPanelY)) {
-                //write to file
-                String move = String.format("%s moved from (%d, %d) to (%d, %d)", board.getBoard()[selectedRow][selectedCol], selectedRow, selectedCol, clickedPanelX, clickedPanelY);
+            if (piece != null && piece.isValid(clickedPanelX, clickedPanelY)) {
+                String move = String.format("%s moved from (%d, %d) to (%d, %d)",
+                        board.getBoard()[selectedRow][selectedCol], selectedRow, selectedCol, clickedPanelX, clickedPanelY);
                 moves.add(move);
 
                 piece.Move(clickedPanelX, clickedPanelY);
                 boardview.UpdateBoard();
             }
 
-            //clear selection
             selectedPanel.setBackground(null);
             selectedPanel = null;
         }
     }
 
-    //function to create piece (without it whenever a piece is moved it wont show up on the new square)
     public Pieces createPiece(int row, int col) {
         String piece = board.getBoard()[row][col].trim();
-        switch(piece) {
+        switch (piece) {
             case "R": case "ER":
                 return new RamModel(row, col, board);
             case "B": case "EB":
@@ -102,12 +97,47 @@ public class BoardController implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try (FileWriter fileWriter = new FileWriter(file)) {
-                    for(String move : moves) {
+                    for (String move : moves) {
                         fileWriter.write(move + "\n");
                     }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+    }
+
+    public static void loadGame(String file, JButton button, BoardModel board, BoardView boardView) {
+        button.addActionListener(e -> {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                int row = 0;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("Turn:")) {
+                        board.setBlueTurn(line.contains("Blue"));
+                    } else if (line.startsWith("Turn Counter:")) {
+                        board.setTurnCounter(Integer.parseInt(line.split(":")[1].trim()));
+                    } else {
+                        String[] cells = line.split(" ");
+                        for (int col = 0; col < cells.length; col++) {
+                            board.getBoard()[row][col] = cells[col].equals("#") ? "" : cells[col];
+                        }
+                        row++;
+                    }
+                }
+
+                boardView.UpdateBoard();
+
+                for (JPanel panel : boardView.getPanels()) {
+                    for (MouseListener listener : panel.getMouseListeners()) {
+                        panel.removeMouseListener(listener);
+                    }
+                    panel.addMouseListener(new BoardController(board, boardView));
+                }
+
+                JOptionPane.showMessageDialog(null, "Game loaded successfully!", "Load Game", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error loading game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

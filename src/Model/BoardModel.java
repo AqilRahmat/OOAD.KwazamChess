@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class BoardModel {
     private String[][] board;
-    private boolean isBlueTurn = true; // blue team moves first
-    private int turnCounter = 0; // track number of turns
+    private boolean isBlueTurn = true;
+    private int turnCounter = 0;
 
     public BoardModel() {
         board = new String[8][5];
@@ -51,16 +51,22 @@ public class BoardModel {
         return board;
     }
 
+    public void setBlueTurn(boolean isBlueTurn) {
+        this.isBlueTurn = isBlueTurn;
+    }
+
+    public void setTurnCounter(int turnCounter) {
+        this.turnCounter = turnCounter;
+    }
+
     public void movePiece(int oldRow, int oldCol, int row, int col) {
         if (!canMoveThisTurn(board[oldRow][oldCol])) {
             System.out.println("It's not this piece's turn to move.");
             return;
         }
 
-        System.out.println(isBlueTurn ? "Red's turn" : "Blue's turn");
-
         if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
-            endGame(board[row][col]);
+            endGame();
             return;
         }
 
@@ -89,11 +95,8 @@ public class BoardModel {
         isBlueTurn = !isBlueTurn;
     }
 
-    private void endGame(String capturedPiece) {
-        JOptionPane.showMessageDialog(null,
-                "The Sau piece has been captured. Game over!",
-                "Game Over",
-                JOptionPane.INFORMATION_MESSAGE);
+    private void endGame() {
+        JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Game over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 
@@ -102,7 +105,7 @@ public class BoardModel {
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                rotatedBoard[7-i][4 - j] = board[i][j];
+                rotatedBoard[7 - i][4 - j] = board[i][j];
             }
         }
 
@@ -131,11 +134,12 @@ public class BoardModel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    if (!board[i][j].isEmpty()) {
-                        writer.write(board[i][j] + " at (" + i + "," + j + ")");
-                        writer.newLine();
+                    writer.write(board[i][j].isEmpty() ? "#" : board[i][j]);
+                    if (j < board[i].length - 1) {
+                        writer.write(" ");
                     }
                 }
+                writer.newLine();
             }
             writer.write("Turn: " + (isBlueTurn ? "Blue" : "Red"));
             writer.newLine();
