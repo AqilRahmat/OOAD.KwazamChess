@@ -113,8 +113,10 @@ public class BoardController implements MouseListener {
                 String line;
                 int row = 0;
                 while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("Turn:")) {
-                        board.setBlueTurn(line.contains("Blue"));
+                    if (line.equals("Turn: Blue")) {
+                        board.setBlueTurn(true);
+                    } else if(line.equals("Turn: Red")) {
+                        board.setBlueTurn(false);
                     } else if (line.startsWith("Turn Counter:")) {
                         board.setTurnCounter(Integer.parseInt(line.split(":")[1].trim()));
                     } else {
@@ -127,13 +129,6 @@ public class BoardController implements MouseListener {
                 }
 
                 boardView.UpdateBoard();
-
-                for (JPanel panel : boardView.getPanels()) {
-                    for (MouseListener listener : panel.getMouseListeners()) {
-                        panel.removeMouseListener(listener);
-                    }
-                    panel.addMouseListener(new BoardController(board, boardView));
-                }
 
                 JOptionPane.showMessageDialog(null, "Game loaded successfully!", "Load Game", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
