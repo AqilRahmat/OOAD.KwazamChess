@@ -61,7 +61,6 @@ public class BoardModel {
 
     public void movePiece(int oldRow, int oldCol, int row, int col) {
         if (!canMoveThisTurn(board[oldRow][oldCol])) {
-            System.out.println("It's not this piece's turn to move.");
             return;
         }
 
@@ -73,6 +72,7 @@ public class BoardModel {
         if (board[oldRow][oldCol] != null && !board[oldRow][oldCol].isEmpty()) {
             board[row][col] = board[oldRow][oldCol];
             board[oldRow][oldCol] = "";
+
             rotateBoard();
             turnCounter++;
             if (turnCounter % 2 == 0) {

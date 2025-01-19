@@ -10,6 +10,14 @@ public abstract class Pieces {
         this.board = board;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
     public int getRow() {
         return row;
     }
