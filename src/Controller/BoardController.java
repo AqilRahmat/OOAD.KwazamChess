@@ -110,12 +110,22 @@ public class BoardController implements MouseListener {
     public static void loadGame(String file, JButton button, BoardModel board, BoardView boardView) {
         button.addActionListener(e -> {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                // Check if the file is empty
+                if (reader.readLine() == null) {
+                    JOptionPane.showMessageDialog(null, "Error loading game: The save file is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Reset the reader to the beginning of the file
+                reader.close();
+                BufferedReader newReader = new BufferedReader(new FileReader(file));
+
                 String line;
                 int row = 0;
-                while ((line = reader.readLine()) != null) {
+                while ((line = newReader.readLine()) != null) {
                     if (line.equals("Turn: Blue")) {
                         board.setBlueTurn(true);
-                    } else if(line.equals("Turn: Red")) {
+                    } else if (line.equals("Turn: Red")) {
                         board.setBlueTurn(false);
                     } else if (line.startsWith("Turn Counter:")) {
                         board.setTurnCounter(Integer.parseInt(line.split(":")[1].trim()));
@@ -128,6 +138,7 @@ public class BoardController implements MouseListener {
                     }
                 }
 
+                newReader.close();
                 boardView.UpdateBoard();
 
                 JOptionPane.showMessageDialog(null, "Game loaded successfully!", "Load Game", JOptionPane.INFORMATION_MESSAGE);
@@ -136,6 +147,7 @@ public class BoardController implements MouseListener {
             }
         });
     }
+
 
     @Override
     public void mousePressed(MouseEvent e) {}
