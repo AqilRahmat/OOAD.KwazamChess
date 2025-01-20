@@ -1,10 +1,10 @@
-ET EB ES EB EX
-ER ER ER # ER
-# # # ER #
-# # # # #
-# # # # #
-# # # # #
-R R R R R
-X B S B T
+EX # ES # ET
+ER # ER # ER
+# # EB # #
+# # # B #
+# ER # # #
+# # # R #
+R # R # R
+T # S # X
 Turn: Red
-Turn Counter: 1
+Turn Counter: 35

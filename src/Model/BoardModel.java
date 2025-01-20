@@ -64,6 +64,11 @@ public class BoardModel {
             return;
         }
 
+        if (board[row][col].trim().equals("S") || board[row][col].trim().equals("ES")) {
+            endGame();
+            return;
+        }
+
 
         board[row][col] = board[oldRow][oldCol];
         board[oldRow][oldCol] = "";
@@ -75,11 +80,6 @@ public class BoardModel {
                 transformRam();
                 board[row][col] = board[row][col];
             }
-        }
-
-        if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
-            endGame();
-            return;
         }
 
         rotateBoard();
