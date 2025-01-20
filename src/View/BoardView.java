@@ -95,6 +95,9 @@ public class BoardView {
         JLabel winnerRules = new JLabel("   Whoever can capture the Sau piece first wins!");
         winnerRules.setFont(boldFont);
 
+        JLabel emptySpace = new JLabel("  ");
+        emptySpace.setFont(largerFont);
+
         // Add rules and images to frame
         rulesFrame.add(piecesRules);
         rulesFrame.add(Box.createVerticalStrut(15));
@@ -113,6 +116,7 @@ public class BoardView {
         rulesFrame.add(rule5);
         rulesFrame.add(sauImageLabel);
         rulesFrame.add(winnerRules);
+        rulesFrame.add(emptySpace);
 
         rulesFrame.setVisible(true);
     }
@@ -151,6 +155,11 @@ public class BoardView {
                 image = new ImageIcon("src/Img/Ram.png");
                 label.setIcon(image);
                 break;
+            case "FR":
+                label.setText("");
+                image = new ImageIcon("src/Img/RamFlip.png");
+                label.setIcon(image);
+                break;
             case "B":
                 label.setText("");
                 image = new ImageIcon("src/Img/Biz.png");
@@ -174,6 +183,11 @@ public class BoardView {
             case "ER":
                 label.setText("");
                 image = new ImageIcon("src/Img/RamBlue.png");
+                label.setIcon(image);
+                break;
+            case "EFR":
+                label.setText("");
+                image = new ImageIcon("src/Img/RamBlueFlip.png");
                 label.setIcon(image);
                 break;
             case "EB":

@@ -1,0 +1,10 @@
+ET EB ES EB EX
+ER ER ER # ER
+# # # ER #
+# # # # #
+# # # # #
+# # # # #
+R R R R R
+X B S B T
+Turn: Red
+Turn Counter: 1

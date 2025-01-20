@@ -64,22 +64,31 @@ public class BoardModel {
             return;
         }
 
+
+        board[row][col] = board[oldRow][oldCol];
+        board[oldRow][oldCol] = "";
+
+
+        if (checkEndRow(row)) {
+            if (board[row][col].equals("R") || board[row][col].equals("ER") || board[row][col].equals("FR") || board[row][col].equals("FER")) {
+                System.out.println(board[row][col] + " reached end, transforming...");
+                transformRam();
+                board[row][col] = board[row][col];
+            }
+        }
+
         if ("S".equals(board[row][col]) || "ES".equals(board[row][col])) {
             endGame();
             return;
         }
 
-        if (board[oldRow][oldCol] != null && !board[oldRow][oldCol].isEmpty()) {
-            board[row][col] = board[oldRow][oldCol];
-            board[oldRow][oldCol] = "";
-
-            rotateBoard();
-            turnCounter++;
-            if (turnCounter % 2 == 0) {
-                transformPieces();
-            }
-            switchTurn();
+        rotateBoard();
+        turnCounter++;
+        if (turnCounter % 2 == 0) {
+            transformPieces();  // xor and tor transformation
         }
+
+        switchTurn();
     }
 
     private boolean canMoveThisTurn(String pieceName) {
@@ -124,6 +133,34 @@ public class BoardModel {
                         board[i][j] = "ET";
                     } else if (board[i][j].equals("ET")) {
                         board[i][j] = "EX";
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean checkEndRow(int row) {
+        if(row == 0) {
+            return true;
+        } else if(row == 7) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void transformRam() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] != null && !board[i][j].isEmpty()) {
+                    if (board[i][j].equals("R") && i == 0) {
+                        board[i][j] = "FR";  // Red Ram goes downwards after reaching top
+                    } else if (board[i][j].equals("ER") && i == 7) {
+                        board[i][j] = "EFR"; // Blue Ram goes downwards after reaching top
+                    } else if (board[i][j].equals("FR") && i == 7) {
+                        board[i][j] = "R";   // Red Ram goes upwards after reaching bottom
+                    } else if (board[i][j].equals("EFR") && i == 0) {
+                        board[i][j] = "ER";  // Blue Ram goes upwards after reaching bottom
                     }
                 }
             }

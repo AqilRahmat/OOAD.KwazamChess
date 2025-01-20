@@ -1,7 +1,7 @@
 package Model;
 
-public class RamModel extends Pieces {
-    public RamModel(int row, int col, BoardModel board) {
+public class RamFlippedModel extends Pieces {
+    public RamFlippedModel(int row, int col, BoardModel board) {
         super(row, col, board);
     }
 
@@ -14,6 +14,6 @@ public class RamModel extends Pieces {
 
     @Override
     public boolean isValid(int newRow, int newCol) {
-        return (newRow == this.getRow() - 1) && (newCol == this.getCol());
+        return (newRow == this.getRow() + 1) && (newCol == this.getCol());
     }
 }

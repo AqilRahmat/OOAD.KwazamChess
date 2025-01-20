@@ -67,6 +67,8 @@ public class BoardController implements MouseListener {
         switch (piece) {
             case "R": case "ER":
                 return new RamModel(row, col, board);
+            case "FR": case "EFR":
+                return new RamFlippedModel(row,col,board);
             case "B": case "EB":
                 return new BizModel(row, col, board);
             case "S": case "ES":
