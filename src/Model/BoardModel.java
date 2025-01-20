@@ -73,11 +73,19 @@ public class BoardModel {
             return;
         }
 
-        if (board[row][col].trim().equals("S") || board[row][col].trim().equals("ES")) {
-            endGame();
+
+        // Sau for Red captured, Blue wins
+        if (board[row][col].trim().equals("S")){
+            endGameBlue();
             return;
         }
 
+
+        // Sau for Blue captured, Red wins
+        if (board[row][col].trim().equals("ES")){
+            endGameRed();
+            return;
+        }
 
         board[row][col] = board[oldRow][oldCol];
         board[oldRow][oldCol] = "";
@@ -119,8 +127,13 @@ public class BoardModel {
     //Programmer: Johan Ibrahim
     //What is it:
     //Function:
-    private void endGame() {
-        JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Game over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+    private void endGameRed() {
+        JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Red wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
+    }
+
+    private void endGameBlue() {
+        JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Blue wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 
