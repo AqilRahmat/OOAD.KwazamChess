@@ -1,10 +1,10 @@
-EX # ES # ET
-ER # ER # ER
-# # EB # #
-# # # B #
-# ER # # #
-# # # R #
-R # R # R
 T # S # X
-Turn: Red
-Turn Counter: 35
+R # R # R
+B R # # #
+# # # # #
+# # # # #
+# # # ER EB
+ER # ER # ER
+EX # ES # ET
+Turn: Blue
+Turn Counter: 32

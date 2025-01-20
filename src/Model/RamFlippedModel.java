@@ -1,5 +1,8 @@
 package Model;
 
+//Programmer: Wan Muhammad Ilhan
+//What is it:
+//Function:
 public class RamFlippedModel extends Pieces {
     public RamFlippedModel(int row, int col, BoardModel board) {
         super(row, col, board);

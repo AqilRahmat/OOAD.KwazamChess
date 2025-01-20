@@ -3,6 +3,10 @@ package Model;
 // BizPiece Functionality
 // Move in an L Shape.
 // Can skip over other pieces
+
+//Programmer: Muhammad Aqil
+//What is it:
+//Function:
 public class BizModel extends Pieces {
     private int row, col;
 

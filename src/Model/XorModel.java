@@ -5,6 +5,9 @@ package Model;
 // after 2 turn turn to Tor
 // cannot skip other pieces
 
+//Programmer: Johan Ibrahim
+//What is it:
+//Function:
 public class XorModel extends Pieces {
     public XorModel(int row, int col, BoardModel board) {
         super(row, col, board);

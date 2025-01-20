@@ -22,6 +22,9 @@ public class BoardController implements MouseListener {
     int selectedRow, selectedCol;
     public static List<String> moves = new ArrayList<>();
 
+    //Programmer: Johan Ibrahim
+    //What is it: Constructor for the BoardController
+    //Function: to initialize the BoardController class.
     public BoardController(BoardModel board, BoardView chessBoardDisplay) {
         this.board = board;
         this.boardview = chessBoardDisplay;
@@ -32,6 +35,9 @@ public class BoardController implements MouseListener {
         }
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it: event that will happen when the mouse is clicked
+    //Function: This function will detect 2 clicks of the mouse. The first will set the initial square that the player wants to move from. The second will set the square the player want to move to.
     @Override
     public void mouseClicked(MouseEvent e) {
         clickedPanel = (JPanel) e.getSource();
@@ -62,6 +68,9 @@ public class BoardController implements MouseListener {
         }
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it: function to createPiece
+    //Function: this function is used to create the pieces on the board. It will take the location of the square and return Piece that corresponds to the label on the panel.
     public Pieces createPiece(int row, int col) {
         String piece = board.getBoard()[row][col].trim();
         switch (piece) {
@@ -82,6 +91,9 @@ public class BoardController implements MouseListener {
         }
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it: New Game Function for button
+    //Function: this is the function to start a new game when player clicked the "New Game" button on top of the window.
     public static void newGame(JButton button, JFrame frame) {
         button.addActionListener(new ActionListener() {
             @Override
@@ -94,6 +106,9 @@ public class BoardController implements MouseListener {
         });
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it: Save Game Function for button
+    //Function: save the current position of the pieces whenever player clicked the button
     public static void saveGame(String file, JButton button) {
         button.addActionListener(new ActionListener() {
             @Override
@@ -109,6 +124,9 @@ public class BoardController implements MouseListener {
         });
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it: function to load the previous game.
+    //Function: When user click the button, it will read the file where the final position of the pieces in the previous game are saved and create a new square with that position.
     public static void loadGame(String file, JButton button, BoardModel board, BoardView boardView) {
         button.addActionListener(e -> {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -150,7 +168,7 @@ public class BoardController implements MouseListener {
         });
     }
 
-
+    //Extra empty functions (program will not work if not here) (part of MouseListener)
     @Override
     public void mousePressed(MouseEvent e) {}
 

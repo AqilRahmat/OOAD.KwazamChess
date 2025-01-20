@@ -4,6 +4,9 @@ public abstract class Pieces {
     private int row, col;
     public BoardModel board;
 
+    //Programmer: Johan Ibrahim
+    //What is it:
+    //Function:
     public Pieces(int row, int col, BoardModel board) {
         this.row = row;
         this.col = col;
@@ -26,6 +29,9 @@ public abstract class Pieces {
         return col;
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it:
+    //Function:
     public void Move(int newRow, int newCol) {
         if(!checkForTeam(newRow, newCol)) {
             board.movePiece(getRow(), getCol(), newRow, newCol);
@@ -34,6 +40,9 @@ public abstract class Pieces {
         }
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it:
+    //Function:
     private boolean checkForTeam(int newRow, int newCol) {
         String team = board.getBoard()[getRow()][getCol()];
         String target = board.getBoard()[newRow][newCol];

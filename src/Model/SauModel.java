@@ -4,6 +4,9 @@ package Model;
 // 1 step any direction
 // game ends when piece is captured
 
+//Programmer: Muhammad Aqil
+//What is it:
+//Function:
 public class SauModel extends Pieces {
     public SauModel(int row, int col, BoardModel board) {
         super(row, col, board);

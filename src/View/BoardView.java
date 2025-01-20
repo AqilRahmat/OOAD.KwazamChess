@@ -13,6 +13,9 @@ public class BoardView {
     static JFrame frame;
     private List<JPanel> panels;
 
+    //Programmer: Muhammad Aqil
+    //What is it: the constructor of BoardView.
+    //Function: This is where the main window of the program is initialized.
     public BoardView(BoardModel board) {
         this.board = board;
         panels = new ArrayList<>();
@@ -30,6 +33,9 @@ public class BoardView {
         frame.setVisible(true);
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it: The Buttons at the top of the main window.
+    //Function: Its used to give players options during the game. They can save the game, load the previous game, or start a new game. They can also check out the rules if they dont know.
     public void displayMenus() {
         JButton save = new JButton("Save");
         save.addActionListener(e -> {
@@ -39,7 +45,7 @@ public class BoardView {
         BoardController.saveGame("saved_game.txt", save);
 
         JButton load = new JButton("Load");
-        BoardController.loadGame("save_file.txt",load,board,this);
+        BoardController.loadGame("save_file.txt", load, board, this);
 
         JButton newgame = new JButton("New Game");
         BoardController.newGame(newgame, frame);
@@ -47,7 +53,7 @@ public class BoardView {
         JButton rules = new JButton("Rules");
         rules.addActionListener(e -> openRulesWindow());
 
-        ImageIcon logoIcon = new ImageIcon("src/Img/logo.png");
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/Img/logo.png"));
         Image img = logoIcon.getImage();
         Image resizedImg = img.getScaledInstance(130, 35, Image.SCALE_SMOOTH);
         logoIcon = new ImageIcon(resizedImg);
@@ -60,6 +66,9 @@ public class BoardView {
         frame.add(logoLabel);
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it: The rules window.
+    //Function: This is where the rules of the game is displayed. After player clicked the "Guide" button on top of the main window. This frame will pop-up.
     public void openRulesWindow() {
         JFrame rulesFrame = new JFrame("Rules");
         rulesFrame.setLayout(new BoxLayout(rulesFrame.getContentPane(), BoxLayout.Y_AXIS));
@@ -74,29 +83,26 @@ public class BoardView {
 
         JLabel rule1 = new JLabel("   Ram: The Ram piece can only move forward, 1 step. Turns around at the end of the board. It cannot skip over other pieces.");
         rule1.setFont(largerFont);
-        JLabel ramImageLabel = new JLabel(new ImageIcon(new ImageIcon("src/Img/Ram.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel ramImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Img/Ram.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         JLabel rule2 = new JLabel("   Biz: The Biz piece moves in a 3x2 L shape in any orientation. This is the only piece that can skip other pieces.");
         rule2.setFont(largerFont);
-        JLabel bizImageLabel = new JLabel(new ImageIcon(new ImageIcon("src/Img/Biz.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel bizImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Img/Biz.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         JLabel rule3 = new JLabel("   Tor: The Tor piece can move orthogonally only but can go any distance. It cannot skip over other pieces. After 2 turns, it transforms into the Xor piece.");
         rule3.setFont(largerFont);
-        JLabel torImageLabel = new JLabel(new ImageIcon(new ImageIcon("src/Img/Tor.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel torImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Img/Tor.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         JLabel rule4 = new JLabel("   Xor: The Xor piece can move diagonally only but can go any distance. It cannot skip over other pieces. After 2 turns, it turns into the Tor piece.");
         rule4.setFont(largerFont);
-        JLabel xorImageLabel = new JLabel(new ImageIcon(new ImageIcon("src/Img/Xor.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel xorImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Img/Xor.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         JLabel rule5 = new JLabel("   Sau: The Sau piece can move only one step in any direction. The game ends when the Sau is captured by the other side.");
         rule5.setFont(largerFont);
-        JLabel sauImageLabel = new JLabel(new ImageIcon(new ImageIcon("src/Img/Sau.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel sauImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Img/Sau.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         JLabel winnerRules = new JLabel("   Whoever can capture the Sau piece first wins!");
         winnerRules.setFont(boldFont);
-
-        JLabel emptySpace = new JLabel("  ");
-        emptySpace.setFont(largerFont);
 
         // Add rules and images to frame
         rulesFrame.add(piecesRules);
@@ -116,11 +122,13 @@ public class BoardView {
         rulesFrame.add(rule5);
         rulesFrame.add(sauImageLabel);
         rulesFrame.add(winnerRules);
-        rulesFrame.add(emptySpace);
 
         rulesFrame.setVisible(true);
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it: Function to display the initial state of the board.
+    //Function: It will set the board according to the predetermined starting position of each pieces which are set in BoardModel.
     public void displayInitialBoard() {
         String[][] boardArray = board.getBoard();
 
@@ -143,78 +151,72 @@ public class BoardView {
         }
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it: Function to return the specific panel (square) of the board.
+    //Function: This function is used when determining the piece that are standing on top of the square.
     public List<JPanel> getPanels() {
         return panels;
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it: Function to insert images into the panel.
+    //Function: This function is called when a move is done and the image for the piece needs to be inserted into the new panel.
     public void getPieceImages(String cell, JLabel label) {
         ImageIcon image = null;
-        switch(cell) {
+        switch (cell) {
             case "R":
                 label.setText("");
-                image = new ImageIcon("src/Img/Ram.png");
-                label.setIcon(image);
-                break;
-            case "FR":
-                label.setText("");
-                image = new ImageIcon("src/Img/RamFlip.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/Ram.png"));
                 break;
             case "B":
                 label.setText("");
-                image = new ImageIcon("src/Img/Biz.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/Biz.png"));
                 break;
             case "T":
                 label.setText("");
-                image = new ImageIcon("src/Img/Tor.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/Tor.png"));
                 break;
             case "S":
                 label.setText("");
-                image = new ImageIcon("src/Img/Sau.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/Sau.png"));
                 break;
             case "X":
                 label.setText("");
-                image = new ImageIcon("src/Img/Xor.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/Xor.png"));
                 break;
             case "ER":
                 label.setText("");
-                image = new ImageIcon("src/Img/RamBlue.png");
-                label.setIcon(image);
-                break;
-            case "EFR":
-                label.setText("");
-                image = new ImageIcon("src/Img/RamBlueFlip.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/RamBlue.png"));
                 break;
             case "EB":
                 label.setText("");
-                image = new ImageIcon("src/Img/BizBlue.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/BizBlue.png"));
                 break;
             case "ET":
                 label.setText("");
-                image = new ImageIcon("src/Img/TorBlue.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/TorBlue.png"));
                 break;
             case "ES":
                 label.setText("");
-                image = new ImageIcon("src/Img/SauBlue.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/SauBlue.png"));
                 break;
             case "EX":
                 label.setText("");
-                image = new ImageIcon("src/Img/XorBlue.png");
-                label.setIcon(image);
+                image = new ImageIcon(getClass().getResource("/Img/XorBlue.png"));
+                break;
+            case "EFR":
+                label.setText("");
+                image = new ImageIcon(getClass().getResource("/Img/RamBlue_Flipped.png"));
+                break;
+            case "FR":
+                label.setText("");
+                image = new ImageIcon(getClass().getResource("/Img/Ram_Flipped.png"));
                 break;
             default:
                 label.setIcon(null);
                 break;
         }
-        if(image != null){
+        if (image != null) {
             Image img = image.getImage();
             Image newImage = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             ImageIcon newIcon = new ImageIcon(newImage);
@@ -224,6 +226,9 @@ public class BoardView {
         }
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it: Function to update the board.
+    //Function: This function is called at the end of every move action to update the board with the latest pieces position
     public void UpdateBoard() {
         String[][] boardArray = board.getBoard();
         for (int i = 0; i < panels.size(); i++) {

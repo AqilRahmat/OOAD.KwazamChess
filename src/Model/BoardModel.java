@@ -10,11 +10,17 @@ public class BoardModel {
     private boolean isBlueTurn = true;
     private int turnCounter = 0;
 
+    //Programmer: Johan Ibrahim
+    //What is it:
+    //Function:
     public BoardModel() {
         board = new String[8][5];
         setInitialPieces();
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it:
+    //Function:
     public void setInitialPieces() {
         board[0][0] = "T";
         board[0][1] = "B";
@@ -59,6 +65,9 @@ public class BoardModel {
         this.turnCounter = turnCounter;
     }
 
+    //Programmer: Muhammad Aqil, Wan Muhammad Ilhan
+    //What is it:
+    //Function:
     public void movePiece(int oldRow, int oldCol, int row, int col) {
         if (!canMoveThisTurn(board[oldRow][oldCol])) {
             return;
@@ -91,6 +100,9 @@ public class BoardModel {
         switchTurn();
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it:
+    //Function:
     private boolean canMoveThisTurn(String pieceName) {
         if (pieceName == null || pieceName.isEmpty()) {
             return false;
@@ -104,11 +116,17 @@ public class BoardModel {
         isBlueTurn = !isBlueTurn;
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it:
+    //Function:
     private void endGame() {
         JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Game over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 
+    //Programmer: Muhammad Aqil
+    //What is it:
+    //Function:
     public void rotateBoard() {
         String[][] rotatedBoard = new String[8][5];
 
@@ -121,6 +139,9 @@ public class BoardModel {
         board = rotatedBoard;
     }
 
+    //Programmer: Wan Muhammad Ilhan
+    //What is it:
+    //Function:
     private void transformPieces() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -139,6 +160,9 @@ public class BoardModel {
         }
     }
 
+    //Programmer: Wan Muhammad ilhan, Muhammad Aqil
+    //What is it:
+    //Function:
     private boolean checkEndRow(int row) {
         if(row == 0) {
             return true;
@@ -149,6 +173,9 @@ public class BoardModel {
         return false;
     }
 
+    //Programmer: Wan Muhammad Ilhan, Muhammad Aqil
+    //What is it:
+    //Function:
     private void transformRam() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -167,6 +194,9 @@ public class BoardModel {
         }
     }
 
+    //Programmer: Johan Ibrahim
+    //What is it:
+    //Function:
     public void saveGame(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < board.length; i++) {
