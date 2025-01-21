@@ -30,6 +30,7 @@ public class BoardController implements MouseListener {
         this.boardview = chessBoardDisplay;
         this.panels = boardview.getPanels();
 
+        //Add mouse listener to all panels
         for (JPanel panel : panels) {
             panel.addMouseListener(this);
         }
@@ -137,18 +138,19 @@ public class BoardController implements MouseListener {
     public static void loadGame(String file, JButton button, BoardModel board, BoardView boardView) {
         button.addActionListener(e -> {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                // Check if the file is empty
+                // check if the file is empty
                 if (reader.readLine() == null) {
                     JOptionPane.showMessageDialog(null, "Error loading game: The save file is empty.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                // Reset the reader to the beginning of the file
+                // reset reader
                 reader.close();
                 BufferedReader newReader = new BufferedReader(new FileReader(file));
 
                 String line;
                 int row = 0;
+                // read file and update board state
                 while ((line = newReader.readLine()) != null) {
                     if (line.equals("Turn: Blue")) {
                         board.setBlueTurn(true);
@@ -169,7 +171,7 @@ public class BoardController implements MouseListener {
                 boardView.UpdateBoard();
 
 
-            //Show text on GameLoad function's status
+            // display success or fail message
                 JOptionPane.showMessageDialog(null, "Game loaded successfully!", "Load Game", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error loading game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

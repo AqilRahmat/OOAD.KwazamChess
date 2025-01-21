@@ -52,21 +52,26 @@ public class BoardView {
         });
         BoardController.saveGame("saved_game.txt", save);
 
+        // load previous saved game
         JButton load = new JButton("Load");
         BoardController.loadGame("save_file.txt", load, board, this);
 
+        // start new game
         JButton newgame = new JButton("New Game");
         BoardController.newGame(newgame, frame);
 
+        // open rules window
         JButton rules = new JButton("Rules");
         rules.addActionListener(e -> openRulesWindow());
 
+        // add Kwazam Chess logo at the top
         ImageIcon logoIcon = new ImageIcon(getClass().getResource("/Img/logo.png"));
         Image img = logoIcon.getImage();
         Image resizedImg = img.getScaledInstance(130, 35, Image.SCALE_SMOOTH);
         logoIcon = new ImageIcon(resizedImg);
         JLabel logoLabel = new JLabel(logoIcon);
 
+        // add buttons and logo to frame
         frame.add(save);
         frame.add(load);
         frame.add(newgame);
@@ -225,7 +230,7 @@ public class BoardView {
                 image = new ImageIcon(getClass().getResource("/Img/Ram_Flipped.png"));
                 break;
             default:
-                label.setIcon(null);
+                label.setIcon(null); // no image for empty cell
                 break;
         }
         if (image != null) {

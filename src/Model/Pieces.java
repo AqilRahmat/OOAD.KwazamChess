@@ -5,7 +5,7 @@ public abstract class Pieces {
     public BoardModel board;
 
     //Programmer: Johan Ibrahim
-    //What is it:
+    //What is it: Constructor to initialize piece's position and board
     //Function:
     public Pieces(int row, int col, BoardModel board) {
         this.row = row;
@@ -13,18 +13,22 @@ public abstract class Pieces {
         this.board = board;
     }
 
+    // Set row position
     public void setRow(int row) {
         this.row = row;
     }
 
+    // Set column position
     public void setCol(int col) {
         this.col = col;
     }
 
+    // Get row position
     public int getRow() {
         return row;
     }
 
+    // Get column position
     public int getCol() {
         return col;
     }

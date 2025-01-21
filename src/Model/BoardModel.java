@@ -11,8 +11,8 @@ public class BoardModel {
     private int turnCounter = 0;
 
     //Programmer: Johan Ibrahim
-    //What is it:
-    //Function:
+    //What is it: Constructor to initialize board model
+    //Function: initialize 8x5 size board and set default position for pieces
     public BoardModel() {
         board = new String[8][5];
         setInitialPieces();
@@ -133,13 +133,14 @@ public class BoardModel {
     }
 
     //Programmer: Johan Ibrahim
-    //What is it:
-    //Function:
+    //What is it: Function to end game
+    //Function: End game if red wins
     private void endGameRed() {
         JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Red wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 
+    // end game if blue wins
     private void endGameBlue() {
         JOptionPane.showMessageDialog(null, "The Sau piece has been captured. Blue wins!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
@@ -218,8 +219,8 @@ public class BoardModel {
     }
 
     //Programmer: Johan Ibrahim
-    //What is it:
-    //Function:
+    //What is it: Function to save game state
+    //Function: To save current game state to file
     public void saveGame(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < board.length; i++) {
