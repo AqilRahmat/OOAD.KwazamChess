@@ -117,8 +117,8 @@ public class BoardModel {
     }
 
     //Programmer: Wan Muhammad Ilhan
-    //What is it:
-    //Function:
+    //What is it: ensures that blue moves first at the start of the game
+    //Function: any pieces that starts with id "E" (for blue pieces) may start the game.
     private boolean canMoveThisTurn(String pieceName) {
         if (pieceName == null || pieceName.isEmpty()) {
             return false;
@@ -161,8 +161,8 @@ public class BoardModel {
     }
 
     //Programmer: Wan Muhammad Ilhan
-    //What is it:
-    //Function:
+    //What is it: transform XOR to TOR and vice versa every 2 turns
+    //Function: the function scans the board and changes all TOR pieces to XOR and all XOR pieces to TOR
     private void transformPieces() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -183,7 +183,7 @@ public class BoardModel {
 
     //Programmer: Wan Muhammad ilhan, Muhammad Aqil
     //What is it: check the row for ram
-    //Function: THis function is used everytime a ram moves to check if it has reach row 0 or 7.
+    //Function: THis function is used everytime a ram moves to check if it has reached row 0 or 7.
     private boolean checkEndRow(int row) {
         if(row == 0) {
             return true;

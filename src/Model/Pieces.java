@@ -30,8 +30,8 @@ public abstract class Pieces {
     }
 
     //Programmer: Wan Muhammad Ilhan
-    //What is it:
-    //Function:
+    //What is it: move function for the pieces
+    //Function: moves piece to new position if not occupied by teammate
     public void Move(int newRow, int newCol) {
         if(!checkForTeam(newRow, newCol)) {
             board.movePiece(getRow(), getCol(), newRow, newCol);

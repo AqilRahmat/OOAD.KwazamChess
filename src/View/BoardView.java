@@ -76,7 +76,7 @@ public class BoardView {
 
     //Programmer: Wan Muhammad Ilhan
     //What is it: The rules window.
-    //Function: This is where the rules of the game is displayed. After player clicked the "Guide" button on top of the main window. This frame will pop-up.
+    //Function: After player clicked the "Rules" button on top of the main window this frame will pop-up.
     public void openRulesWindow() {
         JFrame rulesFrame = new JFrame("Rules");
         rulesFrame.setLayout(new BoxLayout(rulesFrame.getContentPane(), BoxLayout.Y_AXIS));

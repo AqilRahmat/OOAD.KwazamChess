@@ -168,6 +168,8 @@ public class BoardController implements MouseListener {
                 newReader.close();
                 boardView.UpdateBoard();
 
+
+            //Show text on GameLoad function's status
                 JOptionPane.showMessageDialog(null, "Game loaded successfully!", "Load Game", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error loading game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
