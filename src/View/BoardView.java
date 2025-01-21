@@ -17,17 +17,25 @@ public class BoardView {
     //What is it: the constructor of BoardView.
     //Function: This is where the main window of the program is initialized.
     public BoardView(BoardModel board) {
+
+        //set the BoardModel object
         this.board = board;
+
+        //initialising the panels that are used to hold the pieces in.
         panels = new ArrayList<>();
+
+        //Main window initialization (This is the window where the game are shown)
         frame = new JFrame("Kwazam Chess - TT5L GD");
         frame.setLayout(new GridLayout(9, 5, -1, -1));
         frame.setSize(600, 700);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Call the function to display main window with the panels and the buttons on top of the window.
         displayMenus();
         displayInitialBoard();
 
+        //Pop-up window to remind the user that Blue Piece starts first. Will only be displayed at the start of the program.
         JOptionPane.showMessageDialog(frame, "Blue Piece Starts First. Enjoy!", "Kwazam Chess", JOptionPane.INFORMATION_MESSAGE);
 
         frame.setVisible(true);
@@ -130,9 +138,13 @@ public class BoardView {
     //What is it: Function to display the initial state of the board.
     //Function: It will set the board according to the predetermined starting position of each pieces which are set in BoardModel.
     public void displayInitialBoard() {
+        //Pulling the array of the board to be used to insert the panels and labels.
         String[][] boardArray = board.getBoard();
 
+        //The for loop to insert the panel
+        // The first loop will loop through the rows of the board. This loop will go down the row.
         for (String[] row : boardArray) {
+            //the second loop is the one responsible to insert the panels and labels.
             for (String cell : row) {
                 JPanel panel = new JPanel();
                 JLabel label = new JLabel(cell, SwingConstants.CENTER);

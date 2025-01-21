@@ -5,13 +5,13 @@ package Model;
 // game ends when piece is captured
 
 //Programmer: Muhammad Aqil
-//What is it:
-//Function:
 public class SauModel extends Pieces {
+    //constructor
     public SauModel(int row, int col, BoardModel board) {
         super(row, col, board);
     }
 
+    //call the move function inside the pieces function if the move is valid
     @Override
     public void Move(int newRow, int newCol) {
         if(isValid(newRow, newCol)) {
@@ -19,6 +19,7 @@ public class SauModel extends Pieces {
         }
     }
 
+    //make sure the piece can only move 1 step at a time to any direction
     @Override
     public boolean isValid(int newRow, int newCol) {
         int rowDiff = Math.abs(this.getRow() - newRow);

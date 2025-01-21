@@ -40,11 +40,16 @@ public class BoardController implements MouseListener {
     //Function: This function will detect 2 clicks of the mouse. The first will set the initial square that the player wants to move from. The second will set the square the player want to move to.
     @Override
     public void mouseClicked(MouseEvent e) {
+
+        //get the panel that are clicked.
+        // clickedpanelx will give the row and clickedpanely will give the column
         clickedPanel = (JPanel) e.getSource();
         int clickedPanelX = panels.indexOf(clickedPanel) / 5;
         int clickedPanelY = panels.indexOf(clickedPanel) % 5;
 
+        //first it will check if the panel that is selected is null
         if (selectedPanel == null) {
+            //it will select the piece that is moving from the board and set the colour of the square to yellow.
             String piecetomove = board.getBoard()[clickedPanelX][clickedPanelY];
             if (!piecetomove.isEmpty()) {
                 selectedPanel = clickedPanel;
@@ -53,6 +58,7 @@ public class BoardController implements MouseListener {
                 clickedPanel.setBackground(Color.YELLOW);
             }
         } else {
+            //it will select the piece that is moving and create it at the target board. It will also record the movement in the text file.
             Pieces piece = createPiece(selectedRow, selectedCol);
             if (piece != null && piece.isValid(clickedPanelX, clickedPanelY)) {
                 String move = String.format("%s moved from (%d, %d) to (%d, %d)",
@@ -98,6 +104,7 @@ public class BoardController implements MouseListener {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //it will dispose the current game board and call a new one.
                 frame.dispose();
                 BoardModel board = new BoardModel();
                 BoardView boardview = new BoardView(board);

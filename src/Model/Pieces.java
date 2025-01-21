@@ -41,9 +41,10 @@ public abstract class Pieces {
     }
 
     //Programmer: Muhammad Aqil
-    //What is it:
-    //Function:
+    //What is it: check for the colour of the piece
+    //Function: this function is used to ensure that a piece cannot kill its ally.
     private boolean checkForTeam(int newRow, int newCol) {
+        //get the selected piece and the piece on the target
         String team = board.getBoard()[getRow()][getCol()];
         String target = board.getBoard()[newRow][newCol];
 
